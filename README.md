@@ -85,9 +85,31 @@ public interface ConversionService {
 
 이렇게 인터페이스를 분리하는 것을 `ISP` 라 한다.
 
+### 스프링에 컨버터 등록
 
+```java
 
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToIntegerConverter());
+        registry.addConverter(new IntegerToStringConverter());
+        registry.addConverter(new StringToIpPortConverter());
+        registry.addConverter(new IpPortToStringConverter());
+    }
+}
+```
+
+**처리 과정**
+
+`@RequestParam` 은 `@RequestParam` 을 처리하는 `ArgumentResolver` 인 `RequestParamMethodArgumentResolver` 에서
+`ConversionService` 를 사용해서 타입을 변환한다.
+
+부모 클래스와 다양한 외부 클래스를 호출하는 등 복잡한 내부 과정을 거치기 때문에 대략 이렇게 처리되는 것으로 이해해도 충 분하다.
+
+만약 더 깊이있게 확인하고 싶으면 `IpPortConverter` 에 디버그 브레이크 포인트를 걸어서 확인해보자.
 
 
 
