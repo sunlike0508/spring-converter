@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="post" th:object="${form}">
+    number <input th:field="*{number}" type="text"><br/>
+    localDateTime <input th:field="*{localDateTime}" type="text"><br/>
+    <input type="submit"/>
+</form>
+</body>
+</html>
